@@ -1,8 +1,9 @@
+#!/usr/bin/python3
 import random
 
 def drawBoard(board):
 
-    print(' | |')
+    print('   |   |')
     print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
     print('   |   |')
     print('-----------')
@@ -38,19 +39,17 @@ def playAgain():
 def makeMove(board, letter, move):
     board[move] = letter
 
-def isWinner(bo, le):
-    return ((bo[7] == le and bo[8] == le and bo[9] == le) or # across the top
-
-    (bo[4] == le and bo[5] == le and bo[6] == le) or # across the middle
-    (bo[1] == le and bo[2] == le and bo[3] == le) or # across the bottom
-    (bo[7] == le and bo[4] == le and bo[1] == le) or # down the left side
-    (bo[8] == le and bo[5] == le and bo[2] == le) or # down the middle
-    (bo[9] == le and bo[6] == le and bo[3] == le) or # down the right side
-    (bo[7] == le and bo[5] == le and bo[3] == le) or # diagonal
-    (bo[9] == le and bo[5] == le and bo[1] == le)) # diagonal
+def isWinner(board, letter):
+    return ((board[7] == letter and board[8] == letter and board[9] == letter) or
+    (board[4] == letter and board[5] == letter and board[6] == letter) or
+    (board[1] == letter and board[2] == letter and board[3] == letter) or
+    (board[7] == letter and board[4] == letter and board[1] == letter) or
+    (board[8] == letter and board[5] == letter and board[2] == letter) or
+    (board[9] == letter and board[6] == letter and board[3] == letter) or
+    (board[7] == letter and board[5] == letter and board[3] == letter) or
+    (board[9] == letter and board[5] == letter and board[1] == letter))
 
 def getBoardCopy(board):
- # Make a duplicate of the board list and return it the duplicate.
     dupeBoard = []
     for i in board:
         dupeBoard.append(i)
@@ -69,8 +68,6 @@ def getPlayerMove(board):
     return int(move)
 
 def chooseRandomMoveFromList(board, movesList):
-  # Returns a valid move from the passed list on the passed board.
-  # Returns None if there is no valid move.
    possibleMoves = []
    for i in movesList:
        if isSpaceFree(board, i):
@@ -101,7 +98,6 @@ def getComputerMove(board, computerLetter):
     move = chooseRandomMoveFromList(board, [1, 3, 7, 9])
     if move != None:
        return move
-# Try to take the center, if it is free.
     if isSpaceFree(board, 5):
         return 5
     return chooseRandomMoveFromList(board, [2, 4, 6, 8])
@@ -155,8 +151,3 @@ while True:
                 turn = 'player'
     if not playAgain():
         break
-
-if __name__ == '__main__':
-    inputPlayerLetter()
-    whoGoesFirst()
-
